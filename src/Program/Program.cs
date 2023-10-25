@@ -37,7 +37,7 @@ namespace CompAndDel
         //--------------------------------------------------------------------------------------------------------------------------
             //EJERCICIO 2
             
-            /*
+            
             //opcion usando la clase FilterPersistent
             
             PictureProvider provider = new PictureProvider();
@@ -64,7 +64,7 @@ namespace CompAndDel
             // Guardar la imagen final
             provider.SavePicture(finalPicture, "PathToFinalImage.jpg");
             
-            */
+            
         }
     }
 }
