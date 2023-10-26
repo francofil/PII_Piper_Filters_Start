@@ -32,13 +32,12 @@ namespace CompAndDel
            
             Console.WriteLine("Proceso completado."); //chequo que este realizando el codigo
             */
-            
-            
-        //--------------------------------------------------------------------------------------------------------------------------
+
+
+            //--------------------------------------------------------------------------------------------------------------------------
             //EJERCICIO 2
-            
-            
-            //opcion usando la clase FilterPersistent
+
+            /*
             
             PictureProvider provider = new PictureProvider();
             IPicture picture = provider.GetPicture(@"luke.jpg");
@@ -63,8 +62,16 @@ namespace CompAndDel
 
             // Guardar la imagen final
             provider.SavePicture(finalPicture, "PathToFinalImage.jpg");
-            
-            
+            */
+
+            //----------------------------------------------------------------------------------------
+
+            //Ejercicio 3
+            var uploadTwitter = new FilterTwitter();
+            string text = "anakin";
+            string pathToImage = @"PathToFinalImage.jpg";
+            Console.WriteLine(uploadTwitter.UploadImageTwitter(text, pathToImage));
+
         }
     }
 }

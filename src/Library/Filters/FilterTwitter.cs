@@ -14,7 +14,7 @@ namespace CompAndDel.Filters
             return image;
         }
 
-        public string UploadImageToTwitter(string text, string pathToImage)
+        public string UploadImageTwitter(string text, string pathToImage)
         {
             var twitter = new TwitterImage();
             string result = twitter.PublishToTwitter(text, pathToImage);
