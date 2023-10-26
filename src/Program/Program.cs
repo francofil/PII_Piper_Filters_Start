@@ -2,6 +2,18 @@
 using CompAndDel.Pipes;
 using CompAndDel.Filters;
 using Ucu.Poo.Twitter;
+using Ucu.Poo.Cognitive;
+using System.Drawing;
+using SixLabors.ImageSharp;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using Color = System.Drawing.Color;
 
 namespace CompAndDel
 {
@@ -10,10 +22,10 @@ namespace CompAndDel
         static void Main(string[] args)
         {
             //EJERCICIO 1 
-            /*
+
             PictureProvider provider = new PictureProvider();
             IPicture picture = provider.GetPicture(@"luke.jpg");
-
+            /*
             //Creo los filtros
             IFilter filter1 = new FilterGreyscale(); // Primer filtro: Escala de grises
             IFilter filter2 = new FilterNegative();   // Segundo filtro: Negativo
@@ -65,13 +77,53 @@ namespace CompAndDel
             */
 
             //----------------------------------------------------------------------------------------
-
+            /*
             //Ejercicio 3
             var uploadTwitter = new FilterTwitter();
             string text = "anakin";
             string pathToImage = @"PathToFinalImage.jpg";
             Console.WriteLine(uploadTwitter.UploadImageTwitter(text, pathToImage));
+            */
+            // ejercicio 4
 
+
+            {
+                CognitiveFace cog = new CognitiveFace(true, Color.GreenYellow); //no reconoce la cara porque no esta a color
+                cog.Recognize(@"beer.jpg");
+                FoundFace(cog);
+            }
+
+
+            void FoundFace(CognitiveFace cog)
+            {
+                if (cog.FaceFound)
+                {
+                    Console.WriteLine("Face Found!");
+                    IFilter filter1 = new FilterGreyscale();
+                    IPipe pipe1 = new PipeSerial(filter1, new PipeNull());
+                    IPicture picture = provider.GetPicture(@"luke.jpg"); // Obtener la imagen nuevamente
+                    IPicture picture1 = pipe1.Send(picture);
+                    provider.SavePicture(picture1, @"TieneCara.jpg");
+
+                    if (cog.GlassesFound)
+                    {
+                        Console.WriteLine("Tiene lentes");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No tiene lentes");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Cara no encontrada");
+                    IFilter filter2 = new FilterNegative();
+                    IPipe pipe2 = new PipeSerial(filter2, new PipeNull());
+                    IPicture picturea = provider.GetPicture(@"luke.jpg"); // Obtener la imagen nuevamente
+                    IPicture pictureb = pipe2.Send(picturea);
+                    provider.SavePicture(pictureb, @"NoTieneCara.jpg");
+                }
+            }
         }
     }
 }
