@@ -46,16 +46,16 @@ namespace CompAndDel
             provider.SavePicture(picture, "ImagenOriginal.jpg"); //guardo la imagen original como parte del proceso 
         
             // Crear y aplicar el filtro blanco y negro
-            IFilter filter1 = new FilterGreyscale();
-            IPicture grayscalePicture = filter1.Filter(picture);
+            IFilter grey1 = new FilterGreyscale();
+            IPicture grayscalePicture = grey1.Filter(picture);
 
             // Usar FilterGuardar para guardar la imagen en blanco y negro
             IFilter filterGuardar1 = new FilterGuardar("PathToGreyscaleImage.jpg");
             IPicture intermediatePicture = filterGuardar1.Filter(grayscalePicture);
 
             // Aplicar el filtro negativo
-            IFilter filter2 = new FilterNegative();
-            IPicture negativePicture = filter2.Filter(intermediatePicture);
+            IFilter neg2 = new FilterNegative();
+            IPicture negativePicture = neg2.Filter(intermediatePicture);
 
             // Usar FilterGuardar para guardar la imagen negativa
             IFilter filterGuardar2 = new FilterGuardar("PathToNegativeImage.jpg");
